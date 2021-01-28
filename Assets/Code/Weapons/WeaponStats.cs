@@ -39,7 +39,8 @@ public class WeaponStats
 		prefs.Add( "staff",wepChoice == 3 );
 		prefs.Add( "wand",wepChoice == 4 );
 
-		Instantiate( weaponModels[wepChoice],transform );
+		var model = Instantiate( weaponModels[wepChoice],transform );
+		model.layer = LayerMask.NameToLayer( "Weapon" );
 
 		var randMagic = ChooseRandom( 0.3f,0.3f,0.3f );
 		if( randMagic >= 0 ) SetMagic( randMagic );
