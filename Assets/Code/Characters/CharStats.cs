@@ -132,7 +132,16 @@ public abstract class CharStats
 		Instantiate( accessories[type],parentSpot );
 	}
 
-	// public void GenerateOrder
+	public string GenerateOrder()
+	{
+		var choice = ChooseRandom( CalcChance( prefInfo["ale_drink"] ),
+			CalcChance( prefInfo["wine_drink"] ),
+			CalcChance( prefInfo["water_drink"] ) );
+
+		if( choice == 0 ) return( "Ale" );
+		else if( choice == 1 ) return( "Wine" );
+		else return( "Water" );
+	}
 
 	// public abstract string GetRace();
 
@@ -146,4 +155,6 @@ public abstract class CharStats
 	List<Material> colorMats = new List<Material>();
 
 	List<GameObject> accessories = new List<GameObject>();
+
+	[SerializeField] bool liar = false;
 }
