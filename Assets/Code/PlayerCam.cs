@@ -62,15 +62,23 @@ public class PlayerCam
 		if( Physics.Raycast( ray,out hit,5.0f,rayMask ) )
 		{
 			// hit.transform.GetComponentInParent<Throwable>()?.Throw( cam.transform.forward );
-			var throwable = hit.transform.GetComponentInParent<Throwable>();
-			if( throwable != null && Input.GetAxis( "Interact" ) > 0.0f && heldItem == null )
+			if( Input.GetAxis( "Interact" ) > 0.0f && heldItem == null )
 			{
-				heldItem = throwable.gameObject;
-				heldItem.transform.SetParent( holdSpot,true );
-				var body = heldItem.GetComponent<Rigidbody>();
-				body.useGravity = false;
-				body.velocity = Vector3.zero;
-				heldItem.GetComponentInChildren<Collider>().isTrigger = true;
+				var throwable = hit.transform.GetComponentInParent<Throwable>();
+				if( throwable != null ) heldItem = throwable.PickUp( holdSpot );
+				// heldItem = throwable.gameObject;
+				// heldItem.transform.SetParent( holdSpot,true );
+				// var body = heldItem.GetComponent<Rigidbody>();
+				// body.useGravity = false;
+				// body.velocity = Vector3.zero;
+				// heldItem.GetComponentInChildren<Collider>().isTrigger = true;
+				var keg = hit.transform.GetComponentInParent<Keg>();
+				if( keg != null )
+				{
+					// heldItem = Instantiate( keg.GetMugPrefab(),holdSpot );
+					var mug = Instantiate( keg.GetMugPrefab(),holdSpot );
+					heldItem = mug.GetComponent<Throwable>().PickUp( holdSpot );
+				}
 			}
 
 			lookItem = hit.transform.GetComponentInParent<WeaponStats>();
@@ -89,9 +97,9 @@ public class PlayerCam
 
 		if( Input.GetAxis( "Fire1" ) > 0.0f && heldItem != null )
 		{
-			heldItem.transform.SetParent( null,true );
-			heldItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
-			heldItem.GetComponentInChildren<Collider>().isTrigger = false;
+			// heldItem.transform.SetParent( null,true );
+			// heldItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
+			// heldItem.GetComponentInChildren<Collider>().isTrigger = false;
 			heldItem.GetComponent<Throwable>().Throw( cam.transform.forward );
 			heldItem = null;
 		}
