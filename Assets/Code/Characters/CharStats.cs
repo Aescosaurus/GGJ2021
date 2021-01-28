@@ -22,6 +22,10 @@ public abstract class CharStats
 		colorMats.Add( Resources.Load<Material>( "Materials/Green" ) );
 		colorMats.Add( Resources.Load<Material>( "Materials/Blue" ) );
 
+		accessories.Add( Resources.Load<GameObject>( "Prefabs/Models/Accessories/Tail" ) );
+		accessories.Add( Resources.Load<GameObject>( "Prefabs/Models/Accessories/Horns" ) );
+		accessories.Add( Resources.Load<GameObject>( "Prefabs/Models/Accessories/Hat" ) );
+
 		UpdatePrefs();
 	}
 
@@ -75,6 +79,10 @@ public abstract class CharStats
 		prefs.Add( "horns",Random.Range( 0.0f,1.0f ) < CalcChance( prefInfo["horns"] ) );
 		prefs.Add( "hat",Random.Range( 0.0f,1.0f ) < CalcChance( prefInfo["hat"] ) );
 
+		if( prefs["tail"] ) ApplyAccessory( 0 );
+		if( prefs["horns"] ) ApplyAccessory( 1 );
+		if( prefs["hat"] ) ApplyAccessory( 2 );
+
 		var red = CalcChance( prefInfo["is_red"] );
 		var green = CalcChance( prefInfo["is_green"] );
 		var blue = CalcChance( prefInfo["is_blue"] );
@@ -115,6 +123,15 @@ public abstract class CharStats
 		}
 	}
 
+	void ApplyAccessory( int type )
+	{
+		Transform parentSpot;
+		if( type == 0 ) parentSpot = transform.Find( "TailSpot" );
+		else parentSpot = transform.Find( "HatSpot" );
+
+		Instantiate( accessories[type],parentSpot );
+	}
+
 	// public void GenerateOrder
 
 	// public abstract string GetRace();
@@ -127,4 +144,6 @@ public abstract class CharStats
 	[SerializeField] List<GameObject> skinParts = new List<GameObject>();
 
 	List<Material> colorMats = new List<Material>();
+
+	List<GameObject> accessories = new List<GameObject>();
 }
