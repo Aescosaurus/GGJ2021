@@ -33,11 +33,7 @@ public class WeaponStats
 	void UpdatePrefs()
 	{
 		int wepChoice = Random.Range( 0,5 );
-		prefs.Add( "sword",wepChoice == 0 );
-		prefs.Add( "axe",wepChoice == 1 );
-		prefs.Add( "bow",wepChoice == 2 );
-		prefs.Add( "staff",wepChoice == 3 );
-		prefs.Add( "wand",wepChoice == 4 );
+		SetWepType( wepChoice );
 
 		var model = Instantiate( weaponModels[wepChoice],transform );
 		model.layer = LayerMask.NameToLayer( "Weapon" );
@@ -73,6 +69,35 @@ public class WeaponStats
 		// 	part.GetComponentInChildren<MeshRenderer>().material = colorMats[color];
 		// }
 		Instantiate( particlePrefabs[type],transform );
+
+		if( type == 0 ) magicType = "Fire";
+		else if( type == 1 ) magicType = "Ice";
+		else magicType = "Water";
+	}
+
+	void SetWepType( int type )
+	{
+		prefs.Add( "sword",type == 0 );
+		prefs.Add( "axe",type == 1 );
+		prefs.Add( "bow",type == 2 );
+		prefs.Add( "staff",type == 3 );
+		prefs.Add( "wand",type == 4 );
+
+		if( type == 0 ) wepType = "Sword";
+		else if( type == 1 ) wepType = "Axe";
+		else if( type == 2 ) wepType = "Bow";
+		else if( type == 3 ) wepType = "Staff";
+		else if( type == 4 ) wepType = "Wand";
+	}
+
+	public string GetTitle()
+	{
+		return( "todo cool wep name " + wepType );
+	}
+
+	public string GetDesc()
+	{
+		return( "Type: " + wepType + "\nMagic: " + magicType );
 	}
 
 	// public void GenerateOrder
@@ -83,4 +108,7 @@ public class WeaponStats
 
 	List<GameObject> particlePrefabs = new List<GameObject>();
 	List<GameObject> weaponModels = new List<GameObject>();
+
+	string wepType;
+	string magicType;
 }

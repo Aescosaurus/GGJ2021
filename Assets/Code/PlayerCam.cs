@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 
 public class PlayerCam
 	:
@@ -17,6 +18,11 @@ public class PlayerCam
 
 		rayMask = ~LayerMask.GetMask( "Player" );
 		holdSpot = cam.transform.Find( "HoldSpot" );
+
+		wepInfoPanel = GameObject.Find( "WepInfoPanel" );
+		wepInfoTitle = wepInfoPanel.transform.Find( "Name" ).GetComponent<Text>();
+		wepInfoDesc = wepInfoPanel.transform.Find( "Info" ).GetComponent<Text>();
+		wepInfoPanel.SetActive( false );
 	}
 
 	void Update()
@@ -50,6 +56,7 @@ public class PlayerCam
 		tempAng.z = 0.0f;
 		cam.transform.eulerAngles = tempAng;
 
+		WeaponStats oldLookItem = lookItem;
 		var ray = new Ray( cam.transform.position,cam.transform.forward );
 		RaycastHit hit;
 		if( Physics.Raycast( ray,out hit,5.0f,rayMask ) )
@@ -65,7 +72,20 @@ public class PlayerCam
 				body.velocity = Vector3.zero;
 				heldItem.GetComponentInChildren<Collider>().isTrigger = true;
 			}
+
+			lookItem = hit.transform.GetComponentInParent<WeaponStats>();
+			// if( lookItem == null && oldLookItem == null ) UpdateWepInfo( null );
 		}
+		else lookItem = null;
+		// else UpdateWepInfo( null );
+
+		if( lookItem != oldLookItem && lookItem != null ) UpdateWepInfo( lookItem );
+		// UpdateWepInfo( lookItem );
+		if( lookItem == null )
+		{
+			if( wepInfoClose.Update( Time.deltaTime ) ) UpdateWepInfo( null );
+		}
+		else wepInfoClose.Reset();
 
 		if( Input.GetAxis( "Fire1" ) > 0.0f && heldItem != null )
 		{
@@ -74,6 +94,17 @@ public class PlayerCam
 			heldItem.GetComponentInChildren<Collider>().isTrigger = false;
 			heldItem.GetComponent<Throwable>().Throw( cam.transform.forward );
 			heldItem = null;
+		}
+	}
+
+	void UpdateWepInfo( WeaponStats wep )
+	{
+		wepInfoPanel.SetActive( wep != null );
+
+		if( wep != null )
+		{
+			wepInfoTitle.text = lookItem.GetTitle();
+			wepInfoDesc.text = lookItem.GetDesc();
 		}
 	}
 
@@ -87,4 +118,12 @@ public class PlayerCam
 
 	Transform holdSpot;
 	GameObject heldItem = null;
+
+	WeaponStats lookItem = null;
+
+	GameObject wepInfoPanel;
+	Text wepInfoTitle;
+	Text wepInfoDesc;
+
+	Timer wepInfoClose = new Timer( 0.3f );
 }
