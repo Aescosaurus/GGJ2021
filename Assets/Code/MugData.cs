@@ -5,5 +5,5 @@ using UnityEngine;
 public class MugData : MonoBehaviour
 {
     //To hold what type of drink the mug is
-    public string DrinkType { get; set; }
+    public string DrinkType = "";
 }

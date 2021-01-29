@@ -65,7 +65,8 @@ public class PlayerCam
 				var keg = hit.transform.GetComponentInParent<Keg>();
 				if( keg != null )
 				{
-					var mug = Instantiate( keg.GetMugPrefab(),holdSpot );
+					// var mug = Instantiate( keg.GetMugPrefab(),holdSpot );
+					var mug = keg.SpawnMug( holdSpot );
 					heldItem = mug.GetComponent<Throwable>().PickUp( holdSpot );
 				}
 

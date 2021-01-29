@@ -14,11 +14,14 @@ public class CharacterAI : MonoBehaviour
     //so that the customer knows when to leave
     bool drinkAsked;
     public bool drinkGiven;
-    public string nameOfDrink = "";
+    // public string nameOfDrink = "";
+    string preferredDrink = "Ale";
     bool lostAndFoundAnswer;
 
     public bool exit;
     bool mid;
+
+    [SerializeField] float triggerHitDist = 0.8f;
 
     // Update is called once per frame
     void Start()
@@ -54,83 +57,98 @@ public class CharacterAI : MonoBehaviour
             //check if want item
             drinkAsked = true;
         }
-        //after everything, move again
-        else if (Move(exitTrigger) == false && mid == true)
+
+        if( drinkGiven )
         {
-            transform.position = Vector3.MoveTowards(transform.position, exitTrigger.transform.position, rate);
+            //after everything, move again
+            if( Move( exitTrigger ) == false && mid == true )
+            {
+                transform.position = Vector3.MoveTowards( transform.position,exitTrigger.transform.position,rate );
+            }
+            //give ok to die
+            else if( Move( exitTrigger ) == true )
+            {
+                exit = true;
+            }
+            /*If player is hit with bottle AND liar = true, answered = true, they move left
+            If player is handed an item AND liar = false, answered = true, they move left.
+            Else
+            Game Over prints on screen.*/
         }
-        //give ok to die
-        else if(Move(exitTrigger) == true)
-        {
-            exit = true;
-        }
-        /*If player is hit with bottle AND liar = true, answered = true, they move left
-        If player is handed an item AND liar = false, answered = true, they move left.
-        Else
-        Game Over prints on screen.*/
     }
     void OnCollisionEnter(Collision collision)
     {
         //until drink given
         //If the object that hit the customer is not a mug
-        if (collision.gameObject.GetComponent<MugData>() != null)
+        var mugData = collision.gameObject.GetComponent<MugData>();
+        if (mugData != null)
         {
             //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
             //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
-
-            Debug.Log("HIT");
-            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Ale")
-            {
-                Debug.Log("ALE");
+            if( mugData.DrinkType == preferredDrink )
+			{
+                drinkGiven = true;
                 LostAndFoundQuestion();
-                //permission to move from mid
                 mid = true;
-                collision.gameObject.transform.parent = this.gameObject.transform;
+                mugData.transform.SetParent( transform,true );
+                Destroy( mugData.GetComponent<Rigidbody>() );
             }
-            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Wine")
-            {
-                Debug.Log("Wine");
-                LostAndFoundQuestion();
-                //permission to move from mid
-                mid = true;
-            }
-            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Water")
-            {
-                Debug.Log("Water");
-                LostAndFoundQuestion();
-                //permission to move from mid
-                mid = true;
-            }
+            // Debug.Log("HIT");
+            // if ( mugData.DrinkType == "Ale")
+            // {
+            //     // Debug.Log("ALE");
+            //     LostAndFoundQuestion();
+            //     //permission to move from mid
+            //     mid = true;
+            //     // collision.gameObject.transform.parent = this.gameObject.transform;
+            // }
+            // if ( mugData.DrinkType == "Wine")
+            // {
+            //     // Debug.Log("Wine");
+            //     LostAndFoundQuestion();
+            //     //permission to move from mid
+            //     mid = true;
+            // }
+            // if ( mugData.DrinkType == "Water")
+            // {
+            //     // Debug.Log("Water");
+            //     LostAndFoundQuestion();
+            //     //permission to move from mid
+            //     mid = true;
+            // }
         }  
     }
     //hit center/exit yet?
     bool Move(GameObject trigger)
     {
-        if (transform.position.z < trigger.transform.position.z - .01 || transform.position.z > trigger.transform.position.z + .01)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        var dist = trigger.transform.position - transform.position;
+        return( dist.sqrMagnitude < triggerHitDist * triggerHitDist );
+        // if (transform.position.z < trigger.transform.position.z - .01 || transform.position.z > trigger.transform.position.z + .01)
+        // {
+        //     return false;
+        // }
+        // else
+        // {
+        //     return true;
+        // }
     }
 
     void AskForDrink()
     {
         //based on character rate, ask for drink
-        if (type.GenerateOrder() == "Ale")
+        var order = type.GenerateOrder();
+        if (order == "Ale")
         {
             //display ale drink text bubble
             Debug.Log("Ale Pls");
         }
-        else if (type.GenerateOrder() == "Wine")
+        else if ( order == "Wine")
         {
             //wine
             Debug.Log("Wine pls");
 
         }
-        else if (type.GenerateOrder() == "Water")
+        else if ( order == "Water")
         {
             Debug.Log("Water pls");
         }
