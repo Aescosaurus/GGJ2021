@@ -72,25 +72,36 @@ public class CharacterAI : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //until drink given
-        if(gameObject.name == "Ale")
+        //If the object that hit the customer is not a mug
+        if (collision.gameObject.GetComponent<MugData>() != null)
         {
-            LostAndFoundQuestion();
-            //permission to move from mid
-            mid = true;
-        }
-        if (gameObject.name == "Wine")
-        {
-            LostAndFoundQuestion();
-            //permission to move from mid
-            mid = true;
-        }
-        if (gameObject.name == "Water")
-        {
-            LostAndFoundQuestion();
-            //permission to move from mid
-            mid = true;
-        }
-        
+            //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
+            //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
+
+            Debug.Log("HIT");
+            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Ale")
+            {
+                Debug.Log("ALE");
+                LostAndFoundQuestion();
+                //permission to move from mid
+                mid = true;
+                collision.gameObject.transform.parent = this.gameObject.transform;
+            }
+            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Wine")
+            {
+                Debug.Log("Wine");
+                LostAndFoundQuestion();
+                //permission to move from mid
+                mid = true;
+            }
+            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Water")
+            {
+                Debug.Log("Water");
+                LostAndFoundQuestion();
+                //permission to move from mid
+                mid = true;
+            }
+        }  
     }
     //hit center/exit yet?
     bool Move(GameObject trigger)

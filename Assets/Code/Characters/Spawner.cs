@@ -10,6 +10,9 @@ public class Spawner : MonoBehaviour
     //customer
     public GameObject customer;
 
+    //So the customers dont spawn in each other
+    private int offset = 10;
+
     private void Start()
     {
         Instantiate(customer, new Vector3(13, 0, 6), Quaternion.identity);
@@ -23,7 +26,7 @@ public class Spawner : MonoBehaviour
         if(line.Count < 5)
         {
             //make a character, turn it off, put in line
-            Instantiate(customer, new Vector3(13, 0, 6), Quaternion.identity);
+            Instantiate(customer, new Vector3(13 + (offset * line.Count), 0, 6), Quaternion.identity);
             customer.GetComponent<CharacterAI>().enabled = false;
             line.Enqueue(customer);
         }
