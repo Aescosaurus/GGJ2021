@@ -15,7 +15,7 @@ public class CharacterAI : MonoBehaviour
     bool drinkAsked;
     public bool drinkGiven;
     // public string nameOfDrink = "";
-    string preferredDrink = "Ale";
+    string preferredDrink = "none";
     bool lostAndFoundAnswer;
 
     public bool exit;
@@ -137,6 +137,7 @@ public class CharacterAI : MonoBehaviour
     {
         //based on character rate, ask for drink
         var order = type.GenerateOrder();
+        preferredDrink = order;
         if (order == "Ale")
         {
             //display ale drink text bubble
