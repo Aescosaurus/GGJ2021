@@ -16,6 +16,30 @@ public class WeaponStats
 
 	private void Start()
 	{
+		string[] titles = new string[]
+		{
+			"Common",
+			"Uncommon",
+			"Rare",
+			"Exotic",
+			"Epic",
+			"Legendary",
+			"Unusual",
+			"Special",
+			"Frail",
+			"Fickle",
+			"Holy",
+			"Undead",
+			"Deadly",
+			"Ninja",
+			"Wizard",
+		};
+
+		for( int i = 0; i < Random.Range( 0,nPossibleTitles + 1 ); ++i )
+		{
+			prefix += titles[Random.Range( 0,titles.Length - 1 )] + " ";
+		}
+
 		particlePrefabs.Add( Resources.Load<GameObject>( "Prefabs/Particles/FireParticles" ) );
 		particlePrefabs.Add( Resources.Load<GameObject>( "Prefabs/Particles/IceParticles" ) );
 		particlePrefabs.Add( Resources.Load<GameObject>( "Prefabs/Particles/WaterParticles" ) );
@@ -92,7 +116,7 @@ public class WeaponStats
 
 	public string GetTitle()
 	{
-		return( "todo cool wep name " + wepType );
+		return( prefix + wepType );
 	}
 
 	public string GetDesc()
@@ -111,4 +135,7 @@ public class WeaponStats
 
 	string wepType;
 	string magicType;
+
+	string prefix = "";
+	[SerializeField] int nPossibleTitles = 2;
 }
