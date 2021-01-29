@@ -6,6 +6,8 @@ public class CharacterAI : MonoBehaviour
 {
     private GameObject centerTrigger;
     private GameObject exitTrigger;
+    private GameObject itemLookingFor;
+
     public float rate;
     CharStats type;
 
@@ -22,6 +24,11 @@ public class CharacterAI : MonoBehaviour
     void Start()
     {
         type = this.gameObject.GetComponent<CharStats>();
+        if(type.LiarChance() == false)
+        {
+            itemLookingFor = GameObject.FindGameObjectWithTag("Weapons");
+            //create a type of person based on the weapon.)
+        }
         drinkGiven = false;
 
         centerTrigger = GameObject.Find("CenterTrigger").gameObject;
@@ -65,12 +72,36 @@ public class CharacterAI : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //until drink given
-        if(gameObject.name == "Drink")
+        //If the object that hit the customer is not a mug
+        if (collision.gameObject.GetComponent<MugData>() != null)
         {
-            
-        }
-        //permission to move from mid
-        mid = true;
+            //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
+            //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
+
+            Debug.Log("HIT");
+            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Ale")
+            {
+                Debug.Log("ALE");
+                LostAndFoundQuestion();
+                //permission to move from mid
+                mid = true;
+                collision.gameObject.transform.parent = this.gameObject.transform;
+            }
+            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Wine")
+            {
+                Debug.Log("Wine");
+                LostAndFoundQuestion();
+                //permission to move from mid
+                mid = true;
+            }
+            if (collision.gameObject.GetComponent<MugData>().DrinkType == "Water")
+            {
+                Debug.Log("Water");
+                LostAndFoundQuestion();
+                //permission to move from mid
+                mid = true;
+            }
+        }  
     }
     //hit center/exit yet?
     bool Move(GameObject trigger)
@@ -103,6 +134,13 @@ public class CharacterAI : MonoBehaviour
         {
             Debug.Log("Water pls");
         }
-        
+    }
+    void LostAndFoundQuestion()
+    {
+        bool askingTime = type.AskAboutLostAndFound();
+        if(askingTime == true)
+        {
+
+        }
     }
 }
