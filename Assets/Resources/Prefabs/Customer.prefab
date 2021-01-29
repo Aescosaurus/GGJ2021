@@ -439,8 +439,6 @@ GameObject:
   - component: {fileID: 907559720882531862}
   - component: {fileID: 4042671197191393149}
   - component: {fileID: -2080907785099530546}
-  - component: {fileID: 907559720882531863}
-  - component: {fileID: 907559720882531860}
   - component: {fileID: -688210300696493277}
   - component: {fileID: -8645001229429034961}
   m_Layer: 0
@@ -499,40 +497,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &907559720882531863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907559720882531857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 040d4080508bb25449b1b64af89e28b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skinParts:
-  - {fileID: 907559719608898406}
-  - {fileID: 907559720855666031}
-  - {fileID: 907559719308756820}
-  liar: 0
---- !u!114 &907559720882531860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907559720882531857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a41d6bf69ce12954d9a939c7809503ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skinParts:
-  - {fileID: 907559719608898406}
-  - {fileID: 907559720855666031}
-  - {fileID: 907559719308756820}
-  liar: 0
 --- !u!114 &-688210300696493277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,10 +509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3ff65f7cd07cd498547dbba7efc81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rate: 0.1
+  rate: 6
   drinkGiven: 0
   exit: 0
-  triggerHitDist: 3
+  triggerHitDist: 1
 --- !u!114 &-8645001229429034961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,3 +526,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingText: 
+  heightOffset: 1

@@ -10,27 +10,31 @@ public class SpeechBubble
 	{
 		bubblePrefab = Resources.Load<GameObject>( "Prefabs/SpeechBubble" );
 
+		curBubble = Instantiate( bubblePrefab,transform );
+		curBubble.transform.position += Vector3.up * heightOffset;
 		if( startingText.Length > 0 )
 		{
 			SpawnText( startingText );
 		}
 	}
 
-	public void SpawnText( string info,float heightOffset = 0.0f )
+	public void SpawnText( string info )
 	{
-		DestroyText();
-		curBubble = Instantiate( bubblePrefab,transform );
+		// DestroyText();
+		// curBubble = Instantiate( bubblePrefab,transform );
 		curBubble.GetComponent<TextMesh>().text = info;
-		curBubble.transform.position += Vector3.up * heightOffset;
 	}
 
 	public void DestroyText()
 	{
-		Destroy( curBubble );
+		// Destroy( curBubble );
+		curBubble.GetComponent<TextMesh>().text = "";
 	}
 	
 	[SerializeField] string startingText = "";
 
 	GameObject bubblePrefab;
 	GameObject curBubble;
+
+	[SerializeField] float heightOffset = 0.0f;
 }

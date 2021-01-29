@@ -21,13 +21,19 @@ public class CharacterAI : MonoBehaviour
     public bool exit;
     bool mid;
 
+    // bool liar = false;
+
     [SerializeField] float triggerHitDist = 0.8f;
 
     SpeechBubble speech;
 
+    WeaponStats preferredWeapon = null;
+
     // Update is called once per frame
     void Start()
     {
+        RandomizeRace();
+
         type = this.gameObject.GetComponent<CharStats>();
         if(type.LiarChance() == false)
         {
@@ -49,25 +55,29 @@ public class CharacterAI : MonoBehaviour
     }
     private void Update()
     {
-        //hit center?
-        if(Move(centerTrigger) == false)
+        if( !drinkGiven )
         {
-            transform.position = Vector3.MoveTowards(transform.position, centerTrigger.transform.position, rate);
+            //hit center?
+            if( Move( centerTrigger ) == false )
+            {
+                // transform.position = Vector3.MoveTowards(transform.position, centerTrigger.transform.position, rate);
+                MoveTowards( centerTrigger.transform.position );
+            }
+            //stop
+            else if( Move( centerTrigger ) == true && drinkAsked == false )
+            {
+                AskForDrink();
+                //check if want item
+                drinkAsked = true;
+            }
         }
-        //stop
-        else if(Move(centerTrigger) == true && drinkAsked == false)
-        {
-            AskForDrink();
-            //check if want item
-            drinkAsked = true;
-        }
-
-        if( drinkGiven )
+        else
         {
             //after everything, move again
             if( Move( exitTrigger ) == false && mid == true )
             {
-                transform.position = Vector3.MoveTowards( transform.position,exitTrigger.transform.position,rate );
+                // transform.position = Vector3.MoveTowards( transform.position,exitTrigger.transform.position,rate );
+                MoveTowards( exitTrigger.transform.position );
             }
             //give ok to die
             else if( Move( exitTrigger ) == true )
@@ -85,18 +95,18 @@ public class CharacterAI : MonoBehaviour
         //until drink given
         //If the object that hit the customer is not a mug
         var mugData = collision.gameObject.GetComponent<MugData>();
-        if (mugData != null)
+        if( mugData != null )
         {
             //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
             //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
             if( mugData.DrinkType == preferredDrink )
-			{
+            {
                 drinkGiven = true;
+                // speech.DestroyText();
                 LostAndFoundQuestion();
-                mid = true;
+                // mid = true;
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
-                speech.DestroyText();
             }
             // Debug.Log("HIT");
             // if ( mugData.DrinkType == "Ale")
@@ -121,7 +131,29 @@ public class CharacterAI : MonoBehaviour
             //     //permission to move from mid
             //     mid = true;
             // }
-        }  
+        }
+        var wepData = collision.gameObject.GetComponent<WeaponStats>();
+        if( wepData != null )
+		{
+            bool correctWep = ( wepData == preferredWeapon );
+            if( correctWep )
+            {
+                speech.SpawnText( type.IsLiar() ? "hehe i was a liar" : "yay ty" );
+            }
+            else
+            {
+                speech.SpawnText( type.IsLiar() ? "thats not what i asked for but i was lying so thx anyway" : "thats not my item" );
+            }
+
+			if( correctWep || type.IsLiar() )
+			{
+                wepData.transform.SetParent( transform );
+                Destroy( wepData.GetComponent<Rigidbody>() );
+			}
+
+
+            mid = true;
+		}
     }
     //hit center/exit yet?
     bool Move(GameObject trigger)
@@ -145,7 +177,7 @@ public class CharacterAI : MonoBehaviour
         preferredDrink = order;
 
         // print( order + " pls" );
-        speech.SpawnText( order + " pls",1.0f );
+        speech.SpawnText( order + " pls" );
 
         // if (order == "Ale")
         // {
@@ -166,9 +198,85 @@ public class CharacterAI : MonoBehaviour
     void LostAndFoundQuestion()
     {
         bool askingTime = type.AskAboutLostAndFound();
-        if(askingTime == true)
+        askingTime = true;
+        // making it so all customers ask if possible, unless they are not a liar and have no matching weapons
+        // if(askingTime == true)
         {
+            var wepList = GameObject.FindGameObjectsWithTag( "Weapon" );
+            if( !type.IsLiar() )
+            {
+                foreach( var wep in wepList )
+                {
+                    var wepStats = wep.GetComponent<WeaponStats>();
+                    if( CheckMatch( wepStats,type ) )
+                    {
+                        preferredWeapon = wepStats;
+                    }
+                }
+            }
+            else
+			{
+                int chosen = Random.Range( 0,wepList.Length - 1 );
+                preferredWeapon = wepList[chosen].GetComponent<WeaponStats>();
+			}
+            // int chosen = Random.Range( 0,wepList.Length - 1 );
+            // preferredWeapon = wepList[chosen].GetComponent<WeaponStats>();
 
+            if( preferredWeapon != null )
+            {
+                speech.SpawnText( GenWepText( preferredWeapon ) );
+                // print( GenWepText( preferredWeapon ) );
+            }
+            else
+            {
+                speech.SpawnText( "ty for the drink" );
+                mid = true;
+            }
         }
+        // else
+		{
+            // move to exit
+		}
+    }
+
+    string GenWepText( WeaponStats wep )
+	{
+        string result = "i lost my ";
+        result += wep.GetTitle();
+        result += " with ";
+        result += wep.GetMagicType();
+        result += " magic";
+
+        result += "\ndo you have it?";
+
+        return( result );
+	}
+
+    // true if can be owner
+    bool CheckMatch( WeaponStats wep,CharStats charInfo )
+	{
+        if( !charInfo.CheckPref( wep.GetWepType().ToLower() ) ) return( false );
+
+        if( !charInfo.CheckPref( wep.GetMagicType().ToLower() + "_magic" ) ) return( false );
+
+        return( true );
+	}
+
+    void RandomizeRace()
+	{
+        int choice = Random.Range( 0,6 );
+        if( choice == 0 ) gameObject.AddComponent<DragonCharStats>();
+        else if( choice == 1 ) gameObject.AddComponent<ElfCharStats>();
+        else if( choice == 2 ) gameObject.AddComponent<FishCharStats>();
+        else if( choice == 3 ) gameObject.AddComponent<HumanCharStats>();
+        else if( choice == 4 ) gameObject.AddComponent<LizardCharStats>();
+        else gameObject.AddComponent<WizardCharStats>();
+    }
+
+    void MoveTowards( Vector3 dest )
+	{
+        var diff = dest - transform.position;
+        diff.Normalize();
+        transform.Translate( diff * rate * Time.deltaTime );
     }
 }

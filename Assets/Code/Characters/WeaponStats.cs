@@ -124,6 +124,16 @@ public class WeaponStats
 		return( "Type: " + wepType + "\nMagic: " + magicType );
 	}
 
+	public string GetWepType()
+	{
+		return( wepType );
+	}
+
+	public string GetMagicType()
+	{
+		return( magicType );
+	}
+
 	// public void GenerateOrder
 
 	// public abstract string GetRace();
