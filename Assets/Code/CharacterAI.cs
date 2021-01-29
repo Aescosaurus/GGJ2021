@@ -23,6 +23,8 @@ public class CharacterAI : MonoBehaviour
 
     [SerializeField] float triggerHitDist = 0.8f;
 
+    SpeechBubble speech;
+
     // Update is called once per frame
     void Start()
     {
@@ -37,11 +39,13 @@ public class CharacterAI : MonoBehaviour
         centerTrigger = GameObject.Find("CenterTrigger").gameObject;
         exitTrigger = GameObject.Find("ExitTrigger").gameObject;
         
-        lostAndFoundAnswer = false;    
+        lostAndFoundAnswer = false;
         /*
         If player wants lost and found item behind counter, show text bubble asking for it.
         Wait for answer
         */
+
+        speech = GetComponent<SpeechBubble>();
     }
     private void Update()
     {
@@ -92,6 +96,7 @@ public class CharacterAI : MonoBehaviour
                 mid = true;
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
+                speech.DestroyText();
             }
             // Debug.Log("HIT");
             // if ( mugData.DrinkType == "Ale")
@@ -138,21 +143,25 @@ public class CharacterAI : MonoBehaviour
         //based on character rate, ask for drink
         var order = type.GenerateOrder();
         preferredDrink = order;
-        if (order == "Ale")
-        {
-            //display ale drink text bubble
-            Debug.Log("Ale Pls");
-        }
-        else if ( order == "Wine")
-        {
-            //wine
-            Debug.Log("Wine pls");
 
-        }
-        else if ( order == "Water")
-        {
-            Debug.Log("Water pls");
-        }
+        // print( order + " pls" );
+        speech.SpawnText( order + " pls",1.0f );
+
+        // if (order == "Ale")
+        // {
+        //     //display ale drink text bubble
+        //     Debug.Log("Ale Pls");
+        // }
+        // else if ( order == "Wine")
+        // {
+        //     //wine
+        //     Debug.Log("Wine pls");
+        // 
+        // }
+        // else if ( order == "Water")
+        // {
+        //     Debug.Log("Water pls");
+        // }
     }
     void LostAndFoundQuestion()
     {

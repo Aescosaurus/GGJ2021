@@ -16,11 +16,17 @@ public class SpeechBubble
 		}
 	}
 
-	public void SpawnText( string info )
+	public void SpawnText( string info,float heightOffset = 0.0f )
 	{
-		Destroy( curBubble );
+		DestroyText();
 		curBubble = Instantiate( bubblePrefab,transform );
 		curBubble.GetComponent<TextMesh>().text = info;
+		curBubble.transform.position += Vector3.up * heightOffset;
+	}
+
+	public void DestroyText()
+	{
+		Destroy( curBubble );
 	}
 	
 	[SerializeField] string startingText = "";
