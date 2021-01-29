@@ -27,10 +27,12 @@ public class Spawner : MonoBehaviour
             customer.GetComponent<CharacterAI>().enabled = false;
             line.Enqueue(customer);
         }
+        //if the guy has been destroyed and removed, enable the next.
         if(line.Peek().GetComponent<CharacterAI>().exit == true)
         {
             Destroy(line.Peek().gameObject);
             line.Dequeue();
+            line.Peek().GetComponent<CharacterAI>().enabled = true;
         }
     }
 }

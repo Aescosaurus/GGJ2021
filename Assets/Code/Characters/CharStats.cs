@@ -123,6 +123,34 @@ public abstract class CharStats
 		}
 	}
 
+	public bool LiarChance()
+    {
+		int chance = Random.Range(0, 2);
+		if (chance == 1)
+		{
+			liar = true;
+		}
+		else
+		{
+			liar = false;
+		}
+		return true;
+	}
+
+	public bool AskAboutLostAndFound()
+	{
+		int chance = Random.Range(0, 2);
+		if (liar == true)
+		{
+			if (chance == 1)
+				return true;
+			else
+				return false;
+		}
+		else
+			return true;
+	}
+
 	void ApplyAccessory( int type )
 	{
 		Transform parentSpot;

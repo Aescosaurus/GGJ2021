@@ -6,6 +6,8 @@ public class CharacterAI : MonoBehaviour
 {
     private GameObject centerTrigger;
     private GameObject exitTrigger;
+    private GameObject itemLookingFor;
+
     public float rate;
     CharStats type;
 
@@ -22,6 +24,11 @@ public class CharacterAI : MonoBehaviour
     void Start()
     {
         type = this.gameObject.GetComponent<CharStats>();
+        if(type.LiarChance() == false)
+        {
+            itemLookingFor = GameObject.FindGameObjectWithTag("Weapons");
+            //create a type of person based on the weapon.)
+        }
         drinkGiven = false;
 
         centerTrigger = GameObject.Find("CenterTrigger").gameObject;
@@ -65,12 +72,25 @@ public class CharacterAI : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //until drink given
-        if(gameObject.name == "Drink")
+        if(gameObject.name == "Ale")
         {
-            
+            LostAndFoundQuestion();
+            //permission to move from mid
+            mid = true;
         }
-        //permission to move from mid
-        mid = true;
+        if (gameObject.name == "Wine")
+        {
+            LostAndFoundQuestion();
+            //permission to move from mid
+            mid = true;
+        }
+        if (gameObject.name == "Water")
+        {
+            LostAndFoundQuestion();
+            //permission to move from mid
+            mid = true;
+        }
+        
     }
     //hit center/exit yet?
     bool Move(GameObject trigger)
@@ -103,6 +123,13 @@ public class CharacterAI : MonoBehaviour
         {
             Debug.Log("Water pls");
         }
-        
+    }
+    void LostAndFoundQuestion()
+    {
+        bool askingTime = type.AskAboutLostAndFound();
+        if(askingTime == true)
+        {
+
+        }
     }
 }
