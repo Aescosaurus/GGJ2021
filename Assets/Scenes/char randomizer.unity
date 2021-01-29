@@ -798,6 +798,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5307046850027652840, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: startingText
+      value: Wine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f88186146f9572049945d2c62be38b91, type: 3}
 --- !u!1 &1339896874 stripped
@@ -1039,6 +1044,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5307046850027652840, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: startingText
+      value: Water
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f88186146f9572049945d2c62be38b91, type: 3}
 --- !u!1 &1485054441 stripped
@@ -1144,6 +1154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307046850027652840, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: startingText
+      value: Ale
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f88186146f9572049945d2c62be38b91, type: 3}
