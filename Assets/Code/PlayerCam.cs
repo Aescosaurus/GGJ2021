@@ -13,6 +13,7 @@ public class PlayerCam
 		cam = transform.Find( "Main Camera" );
 
 		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 
 		Assert.IsTrue( verticalCutoff > 0.0f );
 
@@ -27,29 +28,25 @@ public class PlayerCam
 
 	void Update()
 	{
-		if( Input.GetKeyDown( KeyCode.Escape ) )
-		{
-			Cursor.lockState = CursorLockMode.None;
-		}
-		if( Input.GetMouseButtonDown( 0 ) )
-		{
-			Cursor.lockState = CursorLockMode.Locked;
-		}
+		// if( Input.GetKeyDown( KeyCode.Escape ) )
+		// {
+		// 	Cursor.lockState = CursorLockMode.None;
+		// }
+		// if( Input.GetMouseButtonDown( 0 ) )
+		// {
+		// 	Cursor.lockState = CursorLockMode.Locked;
+		// }
 
 		var aim = new Vector2( Input.GetAxis( "Mouse X" ),
 			Input.GetAxis( "Mouse Y" ) );
 
-		// cam.transform.eulerAngles = new Vector3(
-		// 	cam.eulerAngles.x - aim.y * rotationSpeed * Time.deltaTime,
-		// 	cam.eulerAngles.y + aim.x * rotationSpeed * Time.deltaTime,
-		// 	cam.eulerAngles.z );
+		if( Cursor.lockState == CursorLockMode.None ) aim.Set( 0.0f,0.0f );
 
 		if( aim.y > maxAimMove ) aim.y = maxAimMove;
 		if( aim.y < -maxAimMove ) aim.y = -maxAimMove;
 
 		var tempAng = cam.transform.eulerAngles;
 		tempAng.x = tempAng.x - aim.y * rotationSpeed * Time.deltaTime;
-		// if( tempAng.x < 0.0f + verticalCutoff ) tempAng.x = 0.0f + verticalCutoff;
 		if( tempAng.x > 90.0f - verticalCutoff && tempAng.x < 180.0f ) tempAng.x = 90.0f - verticalCutoff;
 		if( tempAng.x < 270.0f + verticalCutoff && tempAng.x > 180.0f ) tempAng.x = 270.0f + verticalCutoff;
 		tempAng.y = tempAng.y + aim.x * rotationSpeed * Time.deltaTime;
@@ -61,34 +58,27 @@ public class PlayerCam
 		RaycastHit hit;
 		if( Physics.Raycast( ray,out hit,5.0f,rayMask ) )
 		{
-			// hit.transform.GetComponentInParent<Throwable>()?.Throw( cam.transform.forward );
 			if( Input.GetAxis( "Interact" ) > 0.0f && heldItem == null )
 			{
 				var throwable = hit.transform.GetComponentInParent<Throwable>();
 				if( throwable != null ) heldItem = throwable.PickUp( holdSpot );
-				// heldItem = throwable.gameObject;
-				// heldItem.transform.SetParent( holdSpot,true );
-				// var body = heldItem.GetComponent<Rigidbody>();
-				// body.useGravity = false;
-				// body.velocity = Vector3.zero;
-				// heldItem.GetComponentInChildren<Collider>().isTrigger = true;
 				var keg = hit.transform.GetComponentInParent<Keg>();
 				if( keg != null )
 				{
-					// heldItem = Instantiate( keg.GetMugPrefab(),holdSpot );
-					var mug = Instantiate( keg.GetMugPrefab(),holdSpot );
+					// var mug = Instantiate( keg.GetMugPrefab(),holdSpot );
+					var mug = keg.SpawnMug( holdSpot );
 					heldItem = mug.GetComponent<Throwable>().PickUp( holdSpot );
 				}
+
+				var refBook = hit.transform.GetComponentInParent<RefBook>();
+				if( refBook != null ) refBook.Preview();
 			}
 
 			lookItem = hit.transform.GetComponentInParent<WeaponStats>();
-			// if( lookItem == null && oldLookItem == null ) UpdateWepInfo( null );
 		}
 		else lookItem = null;
-		// else UpdateWepInfo( null );
 
 		if( lookItem != oldLookItem && lookItem != null ) UpdateWepInfo( lookItem );
-		// UpdateWepInfo( lookItem );
 		if( lookItem == null )
 		{
 			if( wepInfoClose.Update( Time.deltaTime ) ) UpdateWepInfo( null );
@@ -97,9 +87,6 @@ public class PlayerCam
 
 		if( Input.GetAxis( "Fire1" ) > 0.0f && heldItem != null )
 		{
-			// heldItem.transform.SetParent( null,true );
-			// heldItem.GetComponent<Rigidbody>().velocity = Vector3.zero;
-			// heldItem.GetComponentInChildren<Collider>().isTrigger = false;
 			heldItem.GetComponent<Throwable>().Throw( cam.transform.forward );
 			heldItem = null;
 		}

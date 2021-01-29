@@ -16,6 +16,10 @@ public abstract class CharStats
 
 	private void Start()
 	{
+		skinParts.Add( transform.Find( "Head" ).gameObject );
+		skinParts.Add( transform.Find( "Arm1" ).gameObject );
+		skinParts.Add( transform.Find( "Arm2" ).gameObject );
+
 		prefInfo = GeneratePrefInfo();
 
 		colorMats.Add( Resources.Load<Material>( "Materials/Red" ) );
@@ -123,6 +127,34 @@ public abstract class CharStats
 		}
 	}
 
+	public bool LiarChance()
+    {
+		int chance = Random.Range(0, 2);
+		if (chance == 1)
+		{
+			liar = true;
+		}
+		else
+		{
+			liar = false;
+		}
+		return true;
+	}
+
+	public bool AskAboutLostAndFound()
+	{
+		int chance = Random.Range(0, 2);
+		if (liar == true)
+		{
+			if (chance == 1)
+				return true;
+			else
+				return false;
+		}
+		else
+			return true;
+	}
+
 	void ApplyAccessory( int type )
 	{
 		Transform parentSpot;
@@ -143,6 +175,16 @@ public abstract class CharStats
 		else return( "Water" );
 	}
 
+	public bool CheckPref( string pref )
+	{
+		return( prefs[pref] );
+	}
+
+	public bool IsLiar()
+	{
+		return( liar );
+	}
+
 	// public abstract string GetRace();
 
 	// chance
@@ -150,7 +192,7 @@ public abstract class CharStats
 	// ability
 	Dictionary<string,bool> prefs = new Dictionary<string,bool>();
 
-	[SerializeField] List<GameObject> skinParts = new List<GameObject>();
+	List<GameObject> skinParts = new List<GameObject>();
 
 	List<Material> colorMats = new List<Material>();
 

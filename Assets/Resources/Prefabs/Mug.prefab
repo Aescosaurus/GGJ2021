@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6535854907817658733}
   - component: {fileID: 613182017133849128}
   - component: {fileID: 4831921708473100892}
-  - component: {fileID: 7187363178527909902}
+  - component: {fileID: 5723781766829548896}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7187363178527909902
+--- !u!65 &5723781766829548896
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 6448321669634716714}
   - component: {fileID: -8290838856020009249}
   - component: {fileID: 8264839542526434402}
+  - component: {fileID: 1625464564818969197}
   m_Layer: 0
   m_Name: Mug
   m_TagString: Untagged
@@ -154,3 +155,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwForce: 12
+--- !u!114 &1625464564818969197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9188997110129109471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53de6b3496acfaa478b1831e8256f096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
