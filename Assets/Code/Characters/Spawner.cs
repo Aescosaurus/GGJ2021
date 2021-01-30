@@ -44,7 +44,8 @@ public class Spawner : MonoBehaviour
 
     void SpawnCustomer()
 	{
-        var curCustomer = Instantiate( customerPrefab,new Vector3( 13 + ( offset * line.Count ),-1.0f,6 ),Quaternion.identity );
+        var curCustomer = Instantiate( customerPrefab );
+        curCustomer.transform.position = new Vector3( 13 + ( offset * line.Count ),-1.0f,6 );
         curCustomer.GetComponent<CharacterAI>().enabled = false;
         line.Enqueue( curCustomer );
     }

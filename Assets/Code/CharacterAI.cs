@@ -95,7 +95,7 @@ public class CharacterAI : MonoBehaviour
         //until drink given
         //If the object that hit the customer is not a mug
         var mugData = collision.gameObject.GetComponent<MugData>();
-        if( mugData != null )
+        if( drinkAsked && mugData != null )
         {
             //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
             //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
@@ -108,32 +108,9 @@ public class CharacterAI : MonoBehaviour
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
             }
-            // Debug.Log("HIT");
-            // if ( mugData.DrinkType == "Ale")
-            // {
-            //     // Debug.Log("ALE");
-            //     LostAndFoundQuestion();
-            //     //permission to move from mid
-            //     mid = true;
-            //     // collision.gameObject.transform.parent = this.gameObject.transform;
-            // }
-            // if ( mugData.DrinkType == "Wine")
-            // {
-            //     // Debug.Log("Wine");
-            //     LostAndFoundQuestion();
-            //     //permission to move from mid
-            //     mid = true;
-            // }
-            // if ( mugData.DrinkType == "Water")
-            // {
-            //     // Debug.Log("Water");
-            //     LostAndFoundQuestion();
-            //     //permission to move from mid
-            //     mid = true;
-            // }
         }
         var wepData = collision.gameObject.GetComponent<WeaponStats>();
-        if( wepData != null )
+        if( drinkGiven && wepData != null )
 		{
             bool correctWep = ( wepData == preferredWeapon );
             if( correctWep )
@@ -277,6 +254,7 @@ public class CharacterAI : MonoBehaviour
 	{
         var diff = dest - transform.position;
         diff.Normalize();
-        transform.Translate( diff * rate * Time.deltaTime );
+        // transform.Translate( diff * rate * Time.deltaTime );
+        transform.position += diff * rate * Time.deltaTime;
     }
 }

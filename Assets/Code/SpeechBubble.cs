@@ -12,6 +12,7 @@ public class SpeechBubble
 
 		curBubble = Instantiate( bubblePrefab,transform );
 		curBubble.transform.position += Vector3.up * heightOffset;
+		SpawnText( "" );
 		if( startingText.Length > 0 )
 		{
 			SpawnText( startingText );
