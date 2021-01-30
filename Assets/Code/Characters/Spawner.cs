@@ -39,6 +39,7 @@ public class Spawner : MonoBehaviour
             Destroy(line.Peek().gameObject);
             line.Dequeue();
             line.Peek().GetComponent<CharacterAI>().enabled = true;
+            ActivateCustomer();
         }
     }
 
@@ -52,6 +53,9 @@ public class Spawner : MonoBehaviour
 
     void ActivateCustomer()
 	{
+        var theLine = line.ToArray();
         line.Peek().GetComponent<CharacterAI>().enabled = true;
-	}
+
+        line.Peek().transform.position = new Vector3(13, -1.0f, 6);
+    }
 }
