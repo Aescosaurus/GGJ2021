@@ -95,11 +95,11 @@ public class CharacterAI : MonoBehaviour
         //until drink given
         //If the object that hit the customer is not a mug
         var mugData = collision.gameObject.GetComponent<MugData>();
-        if( drinkAsked && mugData != null )
+        if( mugData != null )
         {
             //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
             //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
-            if( mugData.DrinkType == preferredDrink )
+            if( drinkAsked && mugData.DrinkType == preferredDrink )
             {
                 drinkGiven = true;
                 // speech.DestroyText();
@@ -108,6 +108,20 @@ public class CharacterAI : MonoBehaviour
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
             }
+            else if( mugData.DrinkType == "Poison" )
+			{
+                if( !drinkGiven ) speech.SpawnText( "AAH WHYD U DO THAT I DIDNT EVEN ASK FOR AN ITEM YET" );
+                else
+				{
+                    if( type.IsLiar() ) speech.SpawnText( "AGH U CAUGHT ME OWOWOW" );
+                    else speech.SpawnText( "WTF I WASNT EVEN LYING" );
+				}
+
+                Destroy( mugData.gameObject );
+
+                drinkGiven = true; // lol
+                mid = true;
+			}
         }
         var wepData = collision.gameObject.GetComponent<WeaponStats>();
         if( drinkGiven && wepData != null )
