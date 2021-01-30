@@ -920,7 +920,7 @@ PrefabInstance:
     - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.96
+      value: -3.231
       objectReference: {fileID: 0}
     - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
         type: 3}
@@ -2688,6 +2688,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 970cd4f601e083847b3c1dede5521995, type: 3}
+--- !u!1001 &798306196
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1533263199503674665, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_Name
+      value: Keg (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: -7547197120673224766, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: drinkType
+      value: Poison
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.4603486
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307046850027652840, guid: f88186146f9572049945d2c62be38b91,
+        type: 3}
+      propertyPath: startingText
+      value: Poison
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f88186146f9572049945d2c62be38b91, type: 3}
 --- !u!1 &807630368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3074,7 +3153,7 @@ PrefabInstance:
     - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.31
+      value: -1.975
       objectReference: {fileID: 0}
     - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
         type: 3}
@@ -6423,7 +6502,7 @@ PrefabInstance:
     - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.28
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 1533263199503674666, guid: f88186146f9572049945d2c62be38b91,
         type: 3}
