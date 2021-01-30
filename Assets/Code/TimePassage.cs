@@ -31,6 +31,7 @@ public class TimePassage : MonoBehaviour
         if (theSun.transform.eulerAngles.x > 195)
         {
             endOfDay = true;
+            DAY++;
             theSun.transform.Rotate(Vector3.right * Time.deltaTime * speedOfSun * 5);
         }
 
