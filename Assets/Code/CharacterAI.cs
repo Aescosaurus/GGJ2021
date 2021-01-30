@@ -17,6 +17,7 @@ public class CharacterAI : MonoBehaviour
     // public string nameOfDrink = "";
     string preferredDrink = "none";
     bool lostAndFoundAnswer;
+    bool poisioned; 
 
     public bool exit;
     bool mid;
@@ -52,6 +53,8 @@ public class CharacterAI : MonoBehaviour
         */
 
         speech = GetComponent<SpeechBubble>();
+
+        poisioned = false;
     }
     private void Update()
     {
@@ -98,7 +101,6 @@ public class CharacterAI : MonoBehaviour
         if( mugData != null )
         {
             //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
-            //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
             if( drinkAsked && mugData.DrinkType == preferredDrink )
             {
                 drinkGiven = true;
@@ -108,19 +110,24 @@ public class CharacterAI : MonoBehaviour
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
             }
-            else if( mugData.DrinkType == "Poison" )
+            else if( mugData.DrinkType == "Poison" && !poisioned)
 			{
-                if( !drinkGiven ) speech.SpawnText( "AAH WHYD U DO THAT I DIDNT EVEN ASK FOR AN ITEM YET" );
+                if (!drinkGiven)
+                {
+                    if (!(type.IsLiar())) speech.SpawnText("AAH WHYD U DO THAT I DIDNT EVEN ASK FOR AN ITEM YET");
+                    else speech.SpawnText("HOW DID YOU KNOW WHO TALKED AHHHHHHHHHHHH");
+                }
                 else
-				{
-                    if( type.IsLiar() ) speech.SpawnText( "AGH U CAUGHT ME OWOWOW" );
-                    else speech.SpawnText( "WTF I WASNT EVEN LYING" );
-				}
+                {
+                    if (type.IsLiar()) speech.SpawnText("AGH U CAUGHT ME OWOWOW");
+                    else speech.SpawnText("WTF I WASNT EVEN LYING");
+                }
 
                 Destroy( mugData.gameObject );
 
                 drinkGiven = true; // lol
                 mid = true;
+                poisioned = true;
 			}
         }
         var wepData = collision.gameObject.GetComponent<WeaponStats>();
