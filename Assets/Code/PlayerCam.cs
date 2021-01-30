@@ -75,10 +75,13 @@ public class PlayerCam
 			}
 
 			lookItem = hit.transform.GetComponentInParent<WeaponStats>();
+
+			hit.transform.GetComponentInParent<Highlightable>()?.Highlight();
+
 		}
 		else lookItem = null;
 
-		if( lookItem != oldLookItem && lookItem != null ) UpdateWepInfo( lookItem );
+		if ( lookItem != oldLookItem && lookItem != null ) UpdateWepInfo( lookItem );
 		if( lookItem == null )
 		{
 			if( wepInfoClose.Update( Time.deltaTime ) ) UpdateWepInfo( null );
