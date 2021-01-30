@@ -99,7 +99,7 @@ public class CharacterAI : MonoBehaviour
         {
             //Check based off of what drink type the mug is, ask question, then attach the mug to the customer. 
             //BUG: DRINKTYPE IS NULL FOR SOME REASON WHEN IT GETS HERE
-            if( mugData.DrinkType == preferredDrink )
+            if( drinkAsked && mugData.DrinkType == preferredDrink )
             {
                 drinkGiven = true;
                 // speech.DestroyText();
@@ -108,32 +108,23 @@ public class CharacterAI : MonoBehaviour
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
             }
-            // Debug.Log("HIT");
-            // if ( mugData.DrinkType == "Ale")
-            // {
-            //     // Debug.Log("ALE");
-            //     LostAndFoundQuestion();
-            //     //permission to move from mid
-            //     mid = true;
-            //     // collision.gameObject.transform.parent = this.gameObject.transform;
-            // }
-            // if ( mugData.DrinkType == "Wine")
-            // {
-            //     // Debug.Log("Wine");
-            //     LostAndFoundQuestion();
-            //     //permission to move from mid
-            //     mid = true;
-            // }
-            // if ( mugData.DrinkType == "Water")
-            // {
-            //     // Debug.Log("Water");
-            //     LostAndFoundQuestion();
-            //     //permission to move from mid
-            //     mid = true;
-            // }
+            else if( mugData.DrinkType == "Poison" )
+			{
+                if( !drinkGiven ) speech.SpawnText( "AAH WHYD U DO THAT I DIDNT EVEN ASK FOR AN ITEM YET" );
+                else
+				{
+                    if( type.IsLiar() ) speech.SpawnText( "AGH U CAUGHT ME OWOWOW" );
+                    else speech.SpawnText( "WTF I WASNT EVEN LYING" );
+				}
+
+                Destroy( mugData.gameObject );
+
+                drinkGiven = true; // lol
+                mid = true;
+			}
         }
         var wepData = collision.gameObject.GetComponent<WeaponStats>();
-        if( wepData != null )
+        if( drinkGiven && wepData != null )
 		{
             bool correctWep = ( wepData == preferredWeapon );
             if( correctWep )
@@ -277,6 +268,7 @@ public class CharacterAI : MonoBehaviour
 	{
         var diff = dest - transform.position;
         diff.Normalize();
-        transform.Translate( diff * rate * Time.deltaTime );
+        // transform.Translate( diff * rate * Time.deltaTime );
+        transform.position += diff * rate * Time.deltaTime;
     }
 }

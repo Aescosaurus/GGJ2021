@@ -109,8 +109,8 @@ public abstract class CharStats
 		// else if( chance < b && b >= a && b >= c ) return( 1 );
 		// else if( chance < c && c >= a && c >= b ) return( 2 );
 		if( a == b && b == c ) return( Random.Range( 0,3 ) );
-		else if( a == b ) return( Random.Range( 0,2 ) );
-		else if( b == c ) return( Random.Range( 1,3 ) );
+		else if( a == b && a > c ) return( Random.Range( 0,2 ) );
+		else if( b == c && b > a ) return( Random.Range( 1,3 ) );
 
 		if( chance < a ) return( 0 );
 		else if( chance < b ) return( 1 );

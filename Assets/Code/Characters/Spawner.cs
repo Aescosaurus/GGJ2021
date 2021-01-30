@@ -39,18 +39,23 @@ public class Spawner : MonoBehaviour
             Destroy(line.Peek().gameObject);
             line.Dequeue();
             line.Peek().GetComponent<CharacterAI>().enabled = true;
+            ActivateCustomer();
         }
     }
 
     void SpawnCustomer()
 	{
-        var curCustomer = Instantiate( customerPrefab,new Vector3( 13 + ( offset * line.Count ),-1.0f,6 ),Quaternion.identity );
+        var curCustomer = Instantiate( customerPrefab );
+        curCustomer.transform.position = new Vector3( 13 + ( offset * line.Count ),-1.0f,6 );
         curCustomer.GetComponent<CharacterAI>().enabled = false;
         line.Enqueue( curCustomer );
     }
 
     void ActivateCustomer()
 	{
+        var theLine = line.ToArray();
         line.Peek().GetComponent<CharacterAI>().enabled = true;
-	}
+
+        line.Peek().transform.position = new Vector3(13, -1.0f, 6);
+    }
 }

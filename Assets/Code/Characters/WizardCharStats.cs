@@ -13,7 +13,6 @@ public class WizardCharStats
 		stats["sword"] = Rate.Rarely;
 		stats["staff"] = Rate.Sometimes;
 		stats["wand"] = Rate.Sometimes;
-		stats["wand"] = Rate.Sometimes;
 		stats["fire_magic"] = Rate.Sometimes;
 		stats["ice_magic"] = Rate.Sometimes;
 		stats["water_magic"] = Rate.Sometimes;
