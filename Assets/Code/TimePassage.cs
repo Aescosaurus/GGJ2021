@@ -30,6 +30,7 @@ public class TimePassage : MonoBehaviour
     private const int RANGE_OF_DAY_CYCLE = 179;
 
     WeaponSpawner wepSpawner;
+    MoneyManager moneyMan;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class TimePassage : MonoBehaviour
         dayEndTimer.Update( dayEndTimer.GetDuration() );
 
         wepSpawner = FindObjectOfType<WeaponSpawner>();
+        moneyMan = FindObjectOfType<MoneyManager>();
     }
 
     // Update is called once per frame
@@ -79,6 +81,7 @@ public class TimePassage : MonoBehaviour
                 dayTimer.Reset();
                 EndOfDay();
                 dayEndTimer.Reset();
+                moneyMan.checkIfMoneyGoalIsMet( DAY );
             }
             // else if (endOfDay && theSun.transform.eulerAngles.x < 16)
             // {

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MoneyManager : MonoBehaviour
 {
-    [SerializeField] int dayOneMoneyGoal = 10;
-    [SerializeField] int dayTwoMoneyGoal = 20;
-    [SerializeField] int dayThreeMoneyGoal = 30;
-    [SerializeField] int dayFourMoneyGoal = 40;
-    [SerializeField] int dayFiveMoneyGoal = 50;
+    [SerializeField] int dayOneMoneyGoal = 20;
+    [SerializeField] int dayTwoMoneyGoal = 50;
+    [SerializeField] int dayThreeMoneyGoal = 80;
+    [SerializeField] int dayFourMoneyGoal = 100;
+    [SerializeField] int dayFiveMoneyGoal = 200;
 
     [SerializeField]
     Text moneyTextOnUI;
@@ -17,6 +18,9 @@ public class MoneyManager : MonoBehaviour
     public static int moneyAmount;
     public static int currentMoneyGoal;
     bool passedDay;
+
+    GameObject gameOverPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,11 @@ public class MoneyManager : MonoBehaviour
         moneyAmount = 0;
 
         moneyTextOnUI.text = moneyAmount + " / " +  currentMoneyGoal;
+
+        gameOverPanel = GameObject.Find( "GameOverPanel" );
+        gameOverPanel.transform.Find( "Retry" ).GetComponent<Button>().onClick.AddListener( delegate { SceneManager.LoadScene( SceneManager.GetActiveScene().name ); } );
+        gameOverPanel.transform.Find( "Retry" ).GetComponent<Button>().onClick.AddListener( delegate { Application.Quit(); } );
+        gameOverPanel.SetActive( false );
     }
 
     void Update()
@@ -36,8 +45,9 @@ public class MoneyManager : MonoBehaviour
         moneyAmount += moneyToAdd;
     }
 
-    void checkIfMoneyGoalIsMet(int daysPassed)
+    public void checkIfMoneyGoalIsMet(int daysPassed)
     {
+        --daysPassed;
         switch (daysPassed)
         {
             default:
@@ -59,6 +69,14 @@ public class MoneyManager : MonoBehaviour
         }
 
         // If the player did not pass the day
-        if (!passedDay) Application.Quit();
+        // if (!passedDay) Application.Quit();
+        if( !passedDay )
+        {
+            gameOverPanel.SetActive( true );
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            TimePassage.DAY = 1;
+            GetComponent<SFXPlayer>().PlaySFX( "give liar item" );
+        }
     }
 }
