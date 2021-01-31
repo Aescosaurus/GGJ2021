@@ -104,19 +104,28 @@ public abstract class CharStats
 
 	int ChooseRandom( float a,float b,float c )
 	{
-		float chance = Random.Range( 0.0f,1.0f );
-		// if( chance < a && a >= b && a >= c ) return( 0 );
-		// else if( chance < b && b >= a && b >= c ) return( 1 );
-		// else if( chance < c && c >= a && c >= b ) return( 2 );
-		if( a == b && b == c && a > 0.0f ) return( Random.Range( 0,3 ) );
-		else if( a == b && a > c ) return( Random.Range( 0,2 ) );
-		else if( b == c && b > a ) return( Random.Range( 1,3 ) );
+		// float chance = Random.Range( 0.0f,1.0f );
+		// // if( chance < a && a >= b && a >= c ) return( 0 );
+		// // else if( chance < b && b >= a && b >= c ) return( 1 );
+		// // else if( chance < c && c >= a && c >= b ) return( 2 );
+		// if( a == b && b == c && a > 0.0f ) return( Random.Range( 0,3 ) );
+		// else if( a == b && a > c ) return( Random.Range( 0,2 ) );
+		// else if( b == c && b > a ) return( Random.Range( 1,3 ) );
+		// 
+		// if( chance < a ) return( 0 );
+		// else if( chance < b ) return( 1 );
+		// else if( chance < c ) return( 2 );
 
-		if( chance < a ) return( 0 );
-		else if( chance < b ) return( 1 );
-		else if( chance < c ) return( 2 );
+		var options = new List<int>();
+		for( int i = 0; i < ( int )( a * 3.0f ); ++i ) options.Add( 0 );
+		for( int i = 0; i < ( int )( b * 3.0f ); ++i ) options.Add( 1 );
+		for( int i = 0; i < ( int )( c * 3.0f ); ++i ) options.Add( 2 );
 
-		return( -1 );
+		if( options.Count > 0 )
+		{
+			return( options[Random.Range( 0,options.Count )] );
+		}
+		else return( -1 );
 	}
 
 	void SetColor( int color )
@@ -198,5 +207,5 @@ public abstract class CharStats
 
 	List<GameObject> accessories = new List<GameObject>();
 
-	[SerializeField] bool liar = false;
+	[SerializeField] public bool liar = false;
 }

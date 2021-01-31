@@ -206,22 +206,31 @@ public class CharacterAI : MonoBehaviour
         // if(askingTime == true)
         {
             var wepList = GameObject.FindGameObjectsWithTag( "Weapon" );
-            if( !type.IsLiar() )
+            // if( !type.IsLiar() )
             {
+                type.liar = ( Random.Range( 0.0f,1.0f ) < 0.7f );
                 foreach( var wep in wepList )
                 {
                     var wepStats = wep.GetComponent<WeaponStats>();
                     if( CheckMatch( wepStats,type ) )
                     {
                         preferredWeapon = wepStats;
+                        type.liar = false;
+                        break;
                     }
                 }
+
+                if( type.liar )
+				{
+                    preferredWeapon = wepList[Random.Range( 0,wepList.Length )].GetComponent<WeaponStats>();
+				}
             }
-            else
-			{
-                int chosen = Random.Range( 0,wepList.Length - 1 );
-                preferredWeapon = wepList[chosen].GetComponent<WeaponStats>();
-			}
+            // else
+			// {
+            //     int chosen = Random.Range( 0,wepList.Length - 1 );
+            //     preferredWeapon = wepList[chosen].GetComponent<WeaponStats>();
+			// }
+
             // int chosen = Random.Range( 0,wepList.Length - 1 );
             // preferredWeapon = wepList[chosen].GetComponent<WeaponStats>();
 
