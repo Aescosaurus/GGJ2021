@@ -20,7 +20,7 @@ public class TimePassage : MonoBehaviour
     DayBar dayBar;
     [SerializeField]
     Image endOfDayUI;
-    Text endOfDayText;
+    Text[] endOfDayText;
 
     private bool secondHalfOfDay;
 
@@ -30,8 +30,9 @@ public class TimePassage : MonoBehaviour
     {
         endOfDayUI.enabled = false;
         secondHalfOfDay = false;
-        endOfDayText = endOfDayUI.GetComponentInChildren<Text>();
-        endOfDayText.enabled = false;
+        endOfDayText = endOfDayUI.GetComponentsInChildren<Text>();
+        endOfDayText[0].enabled = false;
+        endOfDayText[1].enabled = false;
     }
 
     // Update is called once per frame
@@ -87,11 +88,13 @@ public class TimePassage : MonoBehaviour
         if (!reset)
         {
             endOfDayUI.enabled = true;
-            endOfDayText.enabled = true;
-            endOfDayText.text = "DAY " + DAY;
+            endOfDayText[0].enabled = true;
+            endOfDayText[1].enabled = true;
+            endOfDayText[0].text = "DAY " + DAY;
         } else
         {
-            endOfDayText.enabled = false;
+            endOfDayText[0].enabled = false;
+            endOfDayText[1].enabled = false;
             endOfDayUI.enabled = false;
         }
     }
