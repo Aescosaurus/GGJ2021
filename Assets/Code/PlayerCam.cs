@@ -65,11 +65,13 @@ public class PlayerCam
                 if (keg != null)
                 {
                     //if the cup type matches the mug type, then give drink
-                    if (heldItem.GetComponent<MugData>().DrinkType == keg.drinkType)
+                    if (heldItem.GetComponent<MugData>().DrinkType == keg.drinkType &&
+                        !heldItem.gameObject.name.Contains( "Full" ) )
                     {
                         Destroy(heldItem.gameObject);
                         var mug = keg.SpawnMug(holdSpot);
                         heldItem = mug.GetComponent<Throwable>().PickUp(holdSpot);
+                        GetComponent<SFXPlayer>().PlaySFX( "fill cup" );
                     }
                     
                     //else, flash red?(flash doesn't work)
