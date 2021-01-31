@@ -144,7 +144,7 @@ public class PlayerCam
 
     Transform cam;
 
-    [SerializeField] float rotationSpeed = 5.0f;
+    [SerializeField] float rotationSpeed = 8.0f;
     [SerializeField] float verticalCutoff = 10.0f;
     const float maxAimMove = 90.0f - 1.0f;
 
