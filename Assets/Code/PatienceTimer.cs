@@ -5,7 +5,9 @@ using UnityEngine;
 public class PatienceTimer : MonoBehaviour
 {
     Timer timer;
-    float time = 10f;
+    float initPatiance = 20.0f;
+    float patienceBoost = 45.0f;
+    // float time = 10f;
     CharacterAI characterState;
     SpeechBubble text;
     int losingAmount;
@@ -18,7 +20,7 @@ public class PatienceTimer : MonoBehaviour
         addedTime = false;
         
         //start timer
-        timer = new Timer(time);
+        timer = new Timer(initPatiance);
         characterState = this.gameObject.GetComponent<CharacterAI>();
         text = this.gameObject.GetComponent<SpeechBubble>();
     }
@@ -34,7 +36,7 @@ public class PatienceTimer : MonoBehaviour
             {
                 if (!addedTime)
                 {
-                    timer.Add(25f);
+                    timer.Add(patienceBoost);
                     addedTime = true;
                 }
             }
