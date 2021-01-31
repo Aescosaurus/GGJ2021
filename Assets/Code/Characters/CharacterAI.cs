@@ -19,6 +19,7 @@ public class CharacterAI : MonoBehaviour
     bool lostAndFoundAnswer;
     bool poisioned; 
 
+    public bool continueTimer;
     public bool exit;
     bool mid;
 
@@ -35,6 +36,7 @@ public class CharacterAI : MonoBehaviour
     {
         RandomizeRace();
 
+        continueTimer = false;
         type = this.gameObject.GetComponent<CharStats>();
         if(type.LiarChance() == false)
         {
@@ -69,6 +71,8 @@ public class CharacterAI : MonoBehaviour
             //stop
             else if( Move( centerTrigger ) == true && drinkAsked == false )
             {
+                //start patience timer
+                this.gameObject.GetComponent<PatienceTimer>().enabled = true;
                 AskForDrink();
                 //check if want item
                 drinkAsked = true;
@@ -110,8 +114,9 @@ public class CharacterAI : MonoBehaviour
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
 
+                int money = Random.Range(5, 10);
                 //Add up money
-                MoneyManager.changeMoneyAmount(10);
+                MoneyManager.changeMoneyAmount(money);
             }
             else if( mugData.DrinkType == "Poison" && !poisioned)
 			{
@@ -162,7 +167,7 @@ public class CharacterAI : MonoBehaviour
 		}
     }
     //hit center/exit yet?
-    bool Move(GameObject trigger)
+    public bool Move(GameObject trigger)
     {
         var dist = trigger.transform.position - transform.position;
         return( dist.sqrMagnitude < triggerHitDist * triggerHitDist );
@@ -184,27 +189,12 @@ public class CharacterAI : MonoBehaviour
 
         // print( order + " pls" );
         speech.SpawnText( order + " pls" );
-
-        // if (order == "Ale")
-        // {
-        //     //display ale drink text bubble
-        //     Debug.Log("Ale Pls");
-        // }
-        // else if ( order == "Wine")
-        // {
-        //     //wine
-        //     Debug.Log("Wine pls");
-        // 
-        // }
-        // else if ( order == "Water")
-        // {
-        //     Debug.Log("Water pls");
-        // }
     }
     void LostAndFoundQuestion()
     {
         bool askingTime = type.AskAboutLostAndFound();
         askingTime = true;
+        continueTimer = true;
         // making it so all customers ask if possible, unless they are not a liar and have no matching weapons
         // if(askingTime == true)
         {
@@ -237,6 +227,7 @@ public class CharacterAI : MonoBehaviour
             {
                 speech.SpawnText( "ty for the drink" );
                 mid = true;
+                continueTimer = false;
             }
         }
         // else

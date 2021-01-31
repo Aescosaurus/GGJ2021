@@ -17,6 +17,11 @@ public class Timer
 		return( IsDone() );
 	}
 
+	public void Add(float t)
+    {
+		duration = this.duration + t;
+    }
+
 	public void Reset()
 	{
 		curTime = 0.0f;

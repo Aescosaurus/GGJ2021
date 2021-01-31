@@ -5,12 +5,17 @@ using UnityEngine;
 public class SpeechBubble
 	:
 	MonoBehaviour
-{
+	{
+
+	string message;
+	string status;
+	TextMesh printer;
 	void Start()
 	{
 		bubblePrefab = Resources.Load<GameObject>( "Prefabs/SpeechBubble" );
 
 		curBubble = Instantiate( bubblePrefab,transform );
+		printer = curBubble.GetComponent<TextMesh>();
 		curBubble.transform.position += Vector3.up * heightOffset;
 		SpawnText( "" );
 		if( startingText.Length > 0 )
@@ -23,7 +28,8 @@ public class SpeechBubble
 	{
 		// DestroyText();
 		// curBubble = Instantiate( bubblePrefab,transform );
-		curBubble.GetComponent<TextMesh>().text = info;
+		//curBubble.GetComponent<TextMesh>().text = info;
+		message = info;
 	}
 
 	public void DestroyText()
@@ -31,7 +37,17 @@ public class SpeechBubble
 		// Destroy( curBubble );
 		curBubble.GetComponent<TextMesh>().text = "";
 	}
-	
+
+	public void AddStatus(string status)
+    {
+		this.status = status;
+    }
+    public void Update()
+    {
+		printer.text = message + "\n" + status;
+	}
+
+
 	[SerializeField] string startingText = "";
 
 	GameObject bubblePrefab;
