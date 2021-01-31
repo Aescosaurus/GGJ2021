@@ -95,6 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwForce: 15
+  pickupSound: pick up cup
+  dropSound: throw anything
 --- !u!114 &-6602774394688588735
 MonoBehaviour:
   m_ObjectHideFlags: 0

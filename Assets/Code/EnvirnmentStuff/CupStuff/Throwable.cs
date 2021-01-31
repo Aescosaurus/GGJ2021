@@ -9,6 +9,8 @@ public class Throwable
 	void Start()
 	{
 		body = GetComponent<Rigidbody>();
+		sfx = GetComponent<SFXPlayer>();
+		if( sfx == null ) sfx = gameObject.AddComponent<SFXPlayer>();
 	}
 
 	// void FixedUpdate()
@@ -26,6 +28,8 @@ public class Throwable
 		GetComponentInChildren<Collider>().isTrigger = true;
 
 		// follow = holdPoint;
+		if( sfx == null ) sfx = gameObject.AddComponent<SFXPlayer>();
+		sfx.PlaySFX( pickupSound );
 
 		return( gameObject );
 	}
@@ -40,9 +44,15 @@ public class Throwable
 		body.AddForce( dir * throwForce,ForceMode.Impulse );
 		body.useGravity = true;
 		// follow = null;
+		sfx.PlaySFX( dropSound );
 	}
 
 	// Transform follow = null;
 	Rigidbody body;
 	[SerializeField] float throwForce = 15.0f;
+
+	[SerializeField] string pickupSound = "";
+	[SerializeField] string dropSound = "";
+
+	SFXPlayer sfx;
 }
