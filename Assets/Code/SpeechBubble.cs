@@ -35,7 +35,9 @@ public class SpeechBubble
 	public void DestroyText()
 	{
 		// Destroy( curBubble );
-		curBubble.GetComponent<TextMesh>().text = "";
+		// curBubble.GetComponent<TextMesh>().text = "";
+		this.message = "";
+		this.status = "";
 	}
 
 	public void AddStatus(string status)

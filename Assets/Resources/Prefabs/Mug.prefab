@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e11dc7f18d025a4787c975fc867047f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 12
+  throwForce: 16
 --- !u!114 &1625464564818969197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,3 +167,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53de6b3496acfaa478b1831e8256f096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DrinkType: 
