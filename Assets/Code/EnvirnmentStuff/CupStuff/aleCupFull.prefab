@@ -50,9 +50,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e11dc7f18d025a4787c975fc867047f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< Updated upstream
   throwForce: 15
   pickupSound: pick up cup
   dropSound: throw anything
+=======
+  throwForce: 20
+>>>>>>> Stashed changes
 --- !u!114 &-4950174546106010302
 MonoBehaviour:
   m_ObjectHideFlags: 0
