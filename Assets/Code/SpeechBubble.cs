@@ -47,7 +47,6 @@ public class SpeechBubble
 		printer.text = message + "\n" + status;
 	}
 
-
 	[SerializeField] string startingText = "";
 
 	GameObject bubblePrefab;

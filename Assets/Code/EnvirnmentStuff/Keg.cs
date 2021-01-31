@@ -6,9 +6,11 @@ public class Keg
 	:
 	MonoBehaviour
 {
+	public GameObject drinkFilled;
+
 	void Start()
 	{
-		mugPrefab = Resources.Load<GameObject>( "Prefabs/Mug" );
+		mugPrefab = drinkFilled;
 	}
 
 	public GameObject SpawnMug( Transform spawnSpot )

@@ -44,5 +44,5 @@ public class Throwable
 
 	// Transform follow = null;
 	Rigidbody body;
-	[SerializeField] float throwForce = 5.0f;
+	[SerializeField] float throwForce = 15.0f;
 }

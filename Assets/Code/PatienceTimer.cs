@@ -64,11 +64,17 @@ public class PatienceTimer : MonoBehaviour
             text.AddStatus(">:^(");
             losingAmount = Random.Range(7, 13);
             //if customer, leave
-            GameObject trigger = GameObject.Find("ExitTrigger");
-            characterState.exit = true;
-            //if drunkard, lose money.
-            MoneyManager.changeMoneyAmount(-losingAmount);
-            Destroy(this);
+            if (this.gameObject.name != "Drunkard")
+            {
+                GameObject trigger = GameObject.Find("ExitTrigger");
+                characterState.exit = true;
+            }
+            else if (this.gameObject.name == "Drunkard")
+            {
+                //if drunkard, lose money.
+                MoneyManager.changeMoneyAmount(-losingAmount);
+                Destroy(this);
+            }
         }
     }
 }

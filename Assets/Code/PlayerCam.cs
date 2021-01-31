@@ -64,7 +64,6 @@ public class PlayerCam
                 var keg = hit.transform.GetComponentInParent<Keg>();
                 if (keg != null)
                 {
-                    Debug.Log(heldItem.name + " " + keg.drinkType);
                     //if the cup type matches the mug type, then give drink
                     if (heldItem.GetComponent<MugData>().DrinkType == keg.drinkType)
                     {
@@ -102,7 +101,6 @@ public class PlayerCam
                 {
                     var heldCup = cup.SpawnCup(holdSpot);
                     heldItem = heldCup.GetComponent<Throwable>().PickUp(holdSpot);
-                    //Debug.Log(heldCup.transform.position);
                 }
                 //for reference book
                 var refBook = hit.transform.GetComponentInParent<RefBook>();
