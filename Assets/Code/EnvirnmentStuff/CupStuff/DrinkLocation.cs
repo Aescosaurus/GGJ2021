@@ -8,7 +8,7 @@ public class DrinkLocation : MonoBehaviour
     public GameObject CupType;
     private void Start()
     {
-        (Instantiate(CupType, new Vector3(0,0,0), Quaternion.identity) as GameObject).transform.parent = this.gameObject.transform;
+        // (Instantiate(CupType, new Vector3(0,0,0), Quaternion.identity) as GameObject).transform.parent = this.gameObject.transform;
 
     }
     public GameObject SpawnCup(Transform spawnSpot)
