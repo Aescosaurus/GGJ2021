@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2811543226438252958}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.006273389, y: 1.2113874, z: 1.4566231}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.47, z: 0.4}
   m_Children:
   - {fileID: 3332265831538035611}
@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwForce: 15
+  pickupSound: 
+  dropSound: 
 --- !u!65 &8930426177029309134
 BoxCollider:
   m_ObjectHideFlags: 0
