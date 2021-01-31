@@ -1640,7 +1640,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 2050945044}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3974,6 +3974,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2cab7b7c1f7820488b44d80924f8b58, type: 3}
+--- !u!114 &1164348446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4897107819689038635, guid: 3344db9e06160e449af908fe13b9b485,
+    type: 3}
+  m_PrefabInstance: {fileID: 2050945044}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1238322045
 GameObject:
   m_ObjectHideFlags: 0
@@ -4697,6 +4709,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23fb293000fa8e4c80503409c5c14dc, type: 3}
+--- !u!1 &1464234452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8187806064938209470, guid: 3344db9e06160e449af908fe13b9b485,
+    type: 3}
+  m_PrefabInstance: {fileID: 2050945044}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1464234457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464234452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123f764c154287b40aee8eb574992096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayOneMoneyGoal: 10
+  dayTwoMoneyGoal: 20
+  dayThreeMoneyGoal: 30
+  dayFourMoneyGoal: 40
+  dayFiveMoneyGoal: 50
+  moneyTextOnUI: {fileID: 1164348446}
 --- !u!1001 &1468166504
 PrefabInstance:
   m_ObjectHideFlags: 0

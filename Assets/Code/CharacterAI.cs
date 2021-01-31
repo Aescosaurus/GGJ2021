@@ -109,6 +109,9 @@ public class CharacterAI : MonoBehaviour
                 // mid = true;
                 mugData.transform.SetParent( transform,true );
                 Destroy( mugData.GetComponent<Rigidbody>() );
+
+                //Add up money
+                MoneyManager.changeMoneyAmount(10);
             }
             else if( mugData.DrinkType == "Poison" && !poisioned)
 			{
@@ -136,7 +139,14 @@ public class CharacterAI : MonoBehaviour
             bool correctWep = ( wepData == preferredWeapon );
             if( correctWep )
             {
-                speech.SpawnText( type.IsLiar() ? "hehe i was a liar" : "yay ty" );
+                if (type.IsLiar())
+                {
+                    speech.SpawnText("hehe I was a liar");
+                } else
+                {
+                    speech.SpawnText("yay ty");
+                    MoneyManager.changeMoneyAmount(30);
+                }
             }
             else
             {
@@ -148,8 +158,6 @@ public class CharacterAI : MonoBehaviour
                 wepData.transform.SetParent( transform );
                 Destroy( wepData.GetComponent<Rigidbody>() );
 			}
-
-
             mid = true;
 		}
     }
