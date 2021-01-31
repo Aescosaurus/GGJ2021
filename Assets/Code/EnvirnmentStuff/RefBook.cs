@@ -23,13 +23,15 @@ public class RefBook
 		refInfoPanel.transform.Find( "Next" ).GetComponent<Button>().onClick.AddListener( delegate { Next(); } );
 		refInfoPanel.SetActive( false );
 
-		GenPage( "Reference Book","Use this to check customer info." );
+		GenPage( "Reference Book","Use this to check customer info.\nWASD to move\nE to interact\nLeft click to throw\nSpace to close this book\nUse this book to verify if customers are liars or not\nUse the poison to get rid of liars" );
 		GenPage( "Human","Weapon: Sword, Axe, Bow\nMagic: None\nDrink: Any\nTail: Never\nHorns: Never\nHat: Sometimes\nColor: None\n" );
 		GenPage( "Elf","Weapon: Bow, Staff, Wand\nMagic: Ice, Water\nDrink: Wine\nTail: Never\nHorns: Never\nHat: Sometimes\nColor: Blue\n" );
 		GenPage( "Dragon","Weapon: Any\nMagic: Fire\nDrink: Ale, Wine\nTail: Sometimes\nHorns: Sometimes\nHat: Never\nColor: Red" );
 		GenPage( "Lizard","Weapon: Sword, Axe\nMagic: Ice\nDrink: Ale, Wine\nTail: Sometimes\nHorns: Sometimes\nHat: Never\nColor: Green, Blue" );
 		GenPage( "Wizard","Weapon: Sword, Staff, Wand\nMagic: Any\nDrink: Wine\nTail: Never\nHorns: Never\nHat: Always\nColor: None" );
 		GenPage( "Fish","Weapon: Sword, Staff, Wand\nMagic: Water\nDrink: Water\nTail: Sometimes\nHorns: Never\nHat: Sometimes\nColor: Red, Blue, Green" );
+
+		Preview();
 
 		ReloadPage();
 	}

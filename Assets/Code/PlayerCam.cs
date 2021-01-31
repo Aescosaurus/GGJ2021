@@ -12,8 +12,8 @@ public class PlayerCam
     {
         cam = transform.Find("Main Camera");
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
 
         Assert.IsTrue(verticalCutoff > 0.0f);
 
