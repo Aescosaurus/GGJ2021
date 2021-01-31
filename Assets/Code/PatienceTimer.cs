@@ -30,10 +30,13 @@ public class PatienceTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.name.Contains("Drunkard") && DrunkState.drinkGiven)
+        if (DrunkState != null)
         {
-            DrunkState.drinkGiven = false;
-            timer.Reset();
+            if( DrunkState.drinkGiven )
+            {
+                DrunkState.drinkGiven = false;
+                timer.Reset();
+            }
         }
         //if drink recieved
         else if (characterState.drinkGiven == true)
@@ -69,23 +72,31 @@ public class PatienceTimer : MonoBehaviour
         {
             text.AddStatus(":^(");
         }
+
         if(timer.IsDone())
         {
             text.AddStatus(">:^(");
             losingAmount = Random.Range(7, 13);
             //if customer, leave
-            if (this.gameObject.name != "Drunkard")
+            if ( !this.gameObject.name.Contains( "Drunkard" ) )
             {
                 GameObject trigger = GameObject.Find("ExitTrigger");
                 characterState.exit = true;
+                // DrunkState.exit = true;
+                // Destroy( gameObject );
             }
-            else if (this.gameObject.name == "Drunkard")
+            else if (this.gameObject.name.Contains( "Drunkard" ) )
             {
                 //if drunkard, lose money.
                 MoneyManager.changeMoneyAmount(-losingAmount);
                 text.AddStatus(">:^(");
-                Destroy(this);
+                Destroy(gameObject);
             }
         }
     }
+
+    public void ResetPatience()
+	{
+        timer.Reset();
+	}
 }

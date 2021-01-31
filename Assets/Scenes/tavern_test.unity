@@ -2618,9 +2618,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayOneMoneyGoal: 10
   dayTwoMoneyGoal: 20
-  dayThreeMoneyGoal: 30
-  dayFourMoneyGoal: 40
-  dayFiveMoneyGoal: 50
+  dayThreeMoneyGoal: 50
+  dayFourMoneyGoal: 80
+  dayFiveMoneyGoal: 120
   moneyTextOnUI: {fileID: 1164348446}
 --- !u!1001 &1469367803
 PrefabInstance:

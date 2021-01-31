@@ -34,6 +34,8 @@ public class DrunkAI
 
     [SerializeField] Timer drinkRefire = new Timer( 10.0f );
 
+    PatienceTimer patTimer;
+
     // Update is called once per frame
     void Start()
     {
@@ -61,6 +63,8 @@ public class DrunkAI
         poisioned = false;
 
         drinkRefire.Update( Random.Range( 0.0f,drinkRefire.GetDuration() ) );
+
+        patTimer = GetComponent<PatienceTimer>();
     }
     private void Update()
     {
@@ -69,6 +73,11 @@ public class DrunkAI
             AskForDrink();
             drinkAsked = true;
 		}
+		
+        if( !drinkAsked )
+		{
+            patTimer.ResetPatience();
+        }
 
         // if( !drinkGiven )
         // {
@@ -118,7 +127,7 @@ public class DrunkAI
                 drinkAsked = false;
                 drinkRefire.Reset();
                 speech.DestroyText();
-                // drinkGiven = true;
+                drinkGiven = true;
                 // // speech.DestroyText();
                 // LostAndFoundQuestion();
                 // // mid = true;
