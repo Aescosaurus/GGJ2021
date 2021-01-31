@@ -6,7 +6,7 @@ public class PatienceTimer : MonoBehaviour
 {
     Timer timer;
     float initPatiance = 20.0f;
-    float patienceBoost = 50.0f;
+    float patienceBoost = 45.0f;
     // float time = 10f;
     CharacterAI characterState;
     SpeechBubble text;
