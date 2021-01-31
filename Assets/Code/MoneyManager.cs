@@ -51,6 +51,8 @@ public class MoneyManager : MonoBehaviour
         switch (daysPassed)
         {
             default:
+                passedDay = true;
+                break;
             case 1:
                 passedDay = moneyAmount >= dayOneMoneyGoal ? true : false;
                 break;
@@ -67,6 +69,7 @@ public class MoneyManager : MonoBehaviour
                 passedDay = moneyAmount >= dayFiveMoneyGoal ? true : false;
                 break;
         }
+        passedDay = true;
 
         // If the player did not pass the day
         // if (!passedDay) Application.Quit();
@@ -77,6 +80,15 @@ public class MoneyManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             TimePassage.DAY = 1;
             GetComponent<SFXPlayer>().PlaySFX( "give liar item" );
+        }
+        else if( daysPassed >= 5 )
+		{
+            gameOverPanel.SetActive( true );
+            gameOverPanel.transform.Find( "Text" ).GetComponent<Text>().text = "YOU WIN";
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            TimePassage.DAY = 1;
+            GetComponent<SFXPlayer>().PlaySFX( "give customer right item" );
         }
     }
 }

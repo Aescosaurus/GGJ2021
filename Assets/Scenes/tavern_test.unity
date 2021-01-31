@@ -2583,7 +2583,7 @@ MonoBehaviour:
   dayBar: {fileID: 1894467754}
   endOfDayUI: {fileID: 522645265}
   dayTimer:
-    duration: 30
+    duration: 120
   dayEndTimer:
     duration: 3
 --- !u!1 &1464234452 stripped
