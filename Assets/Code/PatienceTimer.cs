@@ -5,11 +5,12 @@ using UnityEngine;
 public class PatienceTimer : MonoBehaviour
 {
     Timer timer;
-    float initPatiance = 20.0f;
+    public float initPatiance = 20.0f;
     float patienceBoost = 55.0f;
     // float time = 10f;
     CharacterAI characterState;
     SpeechBubble text;
+    DrunkAI DrunkState;
     int losingAmount;
 
     bool addedTime;
@@ -17,6 +18,7 @@ public class PatienceTimer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DrunkState = GetComponent<DrunkAI>();
         addedTime = false;
         
         //start timer
@@ -28,8 +30,13 @@ public class PatienceTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.gameObject.name.Contains("Drunkard") && DrunkState.drinkGiven)
+        {
+            DrunkState.drinkGiven = false;
+            timer.Reset();
+        }
         //if drink recieved
-        if(characterState.drinkGiven == true)
+        else if (characterState.drinkGiven == true)
         {
             //check if lost and found item is a question, if so, add 10 seconds to timer.
             if (characterState.continueTimer == true)
@@ -40,6 +47,7 @@ public class PatienceTimer : MonoBehaviour
                     addedTime = true;
                 }
             }
+            
             else
             {
                 //if not, delete this script
@@ -75,6 +83,7 @@ public class PatienceTimer : MonoBehaviour
             {
                 //if drunkard, lose money.
                 MoneyManager.changeMoneyAmount(-losingAmount);
+                text.AddStatus(">:^(");
                 Destroy(this);
             }
         }
