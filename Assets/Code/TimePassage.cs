@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimePassage : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class TimePassage : MonoBehaviour
     // The UI day progress bar
     [SerializeField]
     DayBar dayBar;
+    [SerializeField]
+    Image endOfDayUI;
+    Text endOfDayText;
 
     private bool secondHalfOfDay;
 
@@ -24,7 +28,10 @@ public class TimePassage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        endOfDayUI.enabled = false;
         secondHalfOfDay = false;
+        endOfDayText = endOfDayUI.GetComponentInChildren<Text>();
+        endOfDayText.enabled = false;
     }
 
     // Update is called once per frame
@@ -42,6 +49,11 @@ public class TimePassage : MonoBehaviour
             endOfDay = true;
             DAY++;
             theSun.transform.Rotate(Vector3.right * Time.deltaTime * speedOfSun * 5);
+            EndOfDay();
+        } else if (endOfDay && theSun.transform.eulerAngles.x < 16)
+        {
+            endOfDay = false;
+            EndOfDay(true);
         }
 
     }
@@ -68,5 +80,19 @@ public class TimePassage : MonoBehaviour
         }
 
         if (endOfDay) secondHalfOfDay = false; 
+    }
+
+    private void EndOfDay(bool reset = false)
+    {
+        if (!reset)
+        {
+            endOfDayUI.enabled = true;
+            endOfDayText.enabled = true;
+            endOfDayText.text = "DAY " + DAY;
+        } else
+        {
+            endOfDayText.enabled = false;
+            endOfDayUI.enabled = false;
+        }
     }
 }
