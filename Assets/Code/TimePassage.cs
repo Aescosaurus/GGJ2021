@@ -64,7 +64,7 @@ public class TimePassage : MonoBehaviour
     {
         float currentRotation = theSun.transform.eulerAngles.x;
 
-        if (currentRotation > 89.9)
+        if (currentRotation > 89)
         {
             secondHalfOfDay = true;
         }
