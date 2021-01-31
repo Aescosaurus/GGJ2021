@@ -18,7 +18,7 @@ public class Keg
 		return( curMug );
 	}
 
-	[SerializeField] string drinkType = "water";
+	[SerializeField] public string drinkType = "water";
 
 	GameObject mugPrefab;
 }
