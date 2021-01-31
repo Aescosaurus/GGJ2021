@@ -4529,6 +4529,7 @@ MonoBehaviour:
   endOfDay: 0
   theSun: {fileID: 1389289207}
   speedOfSun: 30
+  dayBar: {fileID: 1894467754}
 --- !u!1 &1394975942
 GameObject:
   m_ObjectHideFlags: 0
@@ -6270,6 +6271,18 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1894467754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6301878032665330019, guid: 3344db9e06160e449af908fe13b9b485,
+    type: 3}
+  m_PrefabInstance: {fileID: 2050945044}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3cb81149c7d124296d9a0790bf7ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1898968911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 468426, guid: da95f7d3c32f0ae409c0d2c1c8b88511,
@@ -6925,6 +6938,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187806064938209469, guid: 3344db9e06160e449af908fe13b9b485,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3344db9e06160e449af908fe13b9b485, type: 3}
