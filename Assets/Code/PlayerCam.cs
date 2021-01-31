@@ -65,7 +65,7 @@ public class PlayerCam
                 if (keg != null)
                 {
                     //if the cup type matches the mug type, then give drink
-                    if (heldItem.GetComponent<MugData>().DrinkType == keg.drinkType &&
+                    if (heldItem.GetComponent<MugData>().DrinkType.Contains( keg.drinkType ) &&
                         !heldItem.gameObject.name.Contains( "Full" ) &&
                         !heldItem.gameObject.name.Contains( "Potion" ) )
                     {

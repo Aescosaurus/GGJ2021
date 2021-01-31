@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53de6b3496acfaa478b1831e8256f096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DrinkType: Water
+  DrinkType: fake Water
 --- !u!54 &1208400868377477200
 Rigidbody:
   m_ObjectHideFlags: 0
