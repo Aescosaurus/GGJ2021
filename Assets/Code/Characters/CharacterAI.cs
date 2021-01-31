@@ -117,6 +117,7 @@ public class CharacterAI : MonoBehaviour
                 int money = Random.Range(5, 10);
                 //Add up money
                 MoneyManager.changeMoneyAmount(money);
+                GetComponent<SFXPlayer>().PlaySFX( "give customer right drink" );
             }
             else if( mugData.DrinkType == "Poison" && !poisioned)
 			{
@@ -136,7 +137,8 @@ public class CharacterAI : MonoBehaviour
                 drinkGiven = true; // lol
                 mid = true;
                 poisioned = true;
-			}
+                GetComponent<SFXPlayer>().PlaySFX( "give poison" );
+            }
         }
         var wepData = collision.gameObject.GetComponent<WeaponStats>();
         if( drinkGiven && wepData != null )
@@ -146,9 +148,12 @@ public class CharacterAI : MonoBehaviour
             {
                 if (type.IsLiar())
                 {
+                    GetComponent<SFXPlayer>().PlaySFX( "give liar item" );
                     speech.SpawnText("hehe I was a liar");
-                } else
+                }
+                else
                 {
+                    GetComponent<SFXPlayer>().PlaySFX( "give customer right item" );
                     speech.SpawnText("yay ty");
                     MoneyManager.changeMoneyAmount(30);
                 }
@@ -156,6 +161,8 @@ public class CharacterAI : MonoBehaviour
             else
             {
                 speech.SpawnText( type.IsLiar() ? "thats not what i asked for but i was lying so thx anyway" : "thats not my item" );
+                if( type.IsLiar() ) GetComponent<SFXPlayer>().PlaySFX( "give liar item" );
+                else GetComponent<SFXPlayer>().PlaySFX( "give customer wrong item" );
             }
 
 			if( correctWep || type.IsLiar() )
