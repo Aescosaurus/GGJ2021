@@ -21,8 +21,8 @@ public class DragonCharStats
 		stats["tail"] = Rate.Sometimes;
 		stats["horns"] = Rate.Sometimes;
 		stats["is_red"] = Rate.Sometimes;
-		stats["is_green"] = Rate.Sometimes;
-		stats["is_blue"] = Rate.Sometimes;
+		// stats["is_green"] = Rate.Sometimes;
+		// stats["is_blue"] = Rate.Sometimes;
 
 		return( stats );
 	}
